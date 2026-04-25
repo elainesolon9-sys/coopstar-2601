@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: 'Coopstar Express | Logística e Moto Frete em São Paulo',
   description: 'A Coopstar Express oferece soluções rápidas e seguras de logística, moto frete e entregas corporativas em Moema e toda São Paulo. Agilidade e confiança para sua empresa.',
   keywords: 'moto frete, logística, entregas rápidas, moema, são paulo, delivery corporativo, coopstar express',
+  icons: {
+    icon: '/favicon.png',
+  },
   openGraph: {
     title: 'Coopstar Express | Logística Inteligente',
     description: 'Entregas rápidas e seguras para sua empresa em Moema e SP.',

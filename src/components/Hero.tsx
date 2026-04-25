@@ -74,6 +74,8 @@ const Hero = () => {
                   src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070&auto=format&fit=crop"
                   alt="Modern Logistics Courier"
                   fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-coopstar-red/40 to-transparent" />

@@ -1,9 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Clock, MessageSquare, Send } from 'lucide-react';
+import { Phone, MapPin, Clock, MessageSquare, Send } from 'lucide-react';
 
 const Contact = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    setTimeout(() => setIsSubmitted(false), 5000);
+  };
+
   return (
     <section id="contato" className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -70,52 +79,69 @@ const Contact = () => {
               <h3 className="text-2xl font-bold text-gray-900">Envie uma mensagem</h3>
             </div>
             
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">Nome</label>
-                  <input 
-                    type="text" 
-                    placeholder="Seu nome completo" 
-                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">E-mail</label>
-                  <input 
-                    type="email" 
-                    placeholder="email@suaempresa.com" 
-                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Assunto</label>
-                <select className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all">
-                  <option>Cotação de Moto Frete</option>
-                  <option>Contrato Mensalista</option>
-                  <option>Dúvidas Gerais</option>
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-gray-700">Mensagem</label>
-                <textarea 
-                  rows={4}
-                  placeholder="Como podemos ajudar sua empresa hoje?" 
-                  className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all"
-                ></textarea>
-              </div>
-
-              <button 
-                type="submit"
-                className="w-full bg-coopstar-red text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-red-700 transition-all shadow-lg shadow-red-500/30 group"
+            {isSubmitted ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-green-50 border border-green-100 p-8 rounded-2xl text-center"
               >
-                Enviar Solicitação
-                <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </button>
-            </form>
+                <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Send size={32} />
+                </div>
+                <h4 className="text-2xl font-bold text-green-800 mb-2">Mensagem Enviada!</h4>
+                <p className="text-green-700">Obrigado pelo contato. Retornaremos em breve.</p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700">Nome</label>
+                    <input 
+                      required
+                      type="text" 
+                      placeholder="Seu nome completo" 
+                      className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-gray-700">E-mail</label>
+                    <input 
+                      required
+                      type="email" 
+                      placeholder="email@suaempresa.com" 
+                      className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">Assunto</label>
+                  <select className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all">
+                    <option>Cotação de Moto Frete</option>
+                    <option>Contrato Mensalista</option>
+                    <option>Dúvidas Gerais</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">Mensagem</label>
+                  <textarea 
+                    required
+                    rows={4}
+                    placeholder="Como podemos ajudar sua empresa hoje?" 
+                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-coopstar-red/20 focus:border-coopstar-red transition-all"
+                  ></textarea>
+                </div>
+
+                <button 
+                  type="submit"
+                  className="w-full bg-coopstar-red text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-red-700 transition-all shadow-lg shadow-red-500/30 group"
+                >
+                  Enviar Solicitação
+                  <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </button>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>
